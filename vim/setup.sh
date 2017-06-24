@@ -1,18 +1,15 @@
 #!/bin/sh
 
-yum install -y ctags cmake gcc-c++ python-devel
-
-if ! ctags --list-languages | grep -qi python; then
-    echo "Fail to install ctags!"
-    exit 1
-fi
-
-if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-    echo "Install vundle ..."
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [ ! -d ~/.vim/autoload/plug.vim ]; then
+    echo "Install vim-plug..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 cp -v vimrc ~/.vimrc
-vim "+PluginInstall" "+x" "+x"
 
-~/.vim/bundle/YouCompleteMe/install.sh
+echo "Please open vim .... and vim + 'PlugInstall'"
+echo "======================================="
+echo "If has installed, please install ycm"
+echo "======================================="
+echo "as this, ~/.vim/bundle/YouCompleteMe/install.sh"

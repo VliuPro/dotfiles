@@ -33,12 +33,14 @@ Plug 'sjl/gundo.vim'
 Plug 'rking/ag.vim'
 " auto complete
 Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'python']}
+" color theme
+Plug 'morhetz/gruvbox'
+Plug 'sjl/badwolf'
 
 Plug 'w0rp/ale'
 "Plug 'scrooloose/syntastic'
 Plug 'nvie/vim-flake8'
 Plug 'jnurmine/Zenburn'
-Plug 'sjl/badwolf'
 Plug 'altercation/vim-colors-solarized'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
@@ -47,6 +49,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -58,9 +61,13 @@ set t_Co=256
 
 if has('gui_running')
     set background=dark
-    colorscheme solarized
-else
     colorscheme badwolf
+else
+    set background=dark
+    colorscheme gruvbox
+
+    "let g:gruvbox_hls_cursor='blue'
+    "let g:gruvbox_italic='1'
 endif
 
 syntax enable               " enable syntax processing

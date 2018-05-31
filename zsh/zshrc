@@ -1,10 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-  export PATH=/usr/bin/emacsclient:$PATH
+  export PATH=/usr/bin/emacsclient:~/script/:$PATH
   export LC_CTYPE=zh_CN.UTF-8
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/trusturzz/.oh-my-zsh
+  export ZSH=~/.oh-my-zsh
   export DEFAULT_USER="urzz"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -55,10 +55,15 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins+=(git cp pip python autojump colorize command-not-found)
-
-# add docker
-plugins+=(docker docker-compose)
+plugins+=(
+    git cp mvn 
+    pip python virtualenv virtualenvwrapper
+    autojump colorize command-not-found history history-substring-search 
+    docker docker-compose 
+    zsh-autosuggestions 
+#    zsh-syntax-highlighting 
+    zsh-navigation-tools
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -90,10 +95,7 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias la="ls -la"
-alias ll="ls -l"
-alias doc="docker-compose"
+TIME_FORMAT='--time-style +%Y-%m-%d_%H:%m'
 
 # autojump environment
 [[ -s /home/vliupro/.autojump/etc/profile.d/autojump.sh ]] && source /home/vliupro/.autojump/etc/profile.d/autojump.sh
@@ -104,26 +106,32 @@ alias doc="docker-compose"
 #fi
 
 export VISUAL="vim"
+
+# virtualenv
 export WORKON_HOME=~/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper_lazy.sh
+
+# zsh-autosuggestions
+
+
+# nvm
+source /usr/share/nvm/init-nvm.sh
 
 # fix screenfetch bug
 export KDE_DEBUG=1
 
+# fzf 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# extra and alias file
 if [[ -e ~/.alias ]]; then
     source ~/.alias
 fi
-
 if [[ -e ~/.extra_config ]]; then
     source ~/.extra_config
 fi
 
-fh() {
-    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-
+# find
 f() {
     if [[ $# -lt 2 ]]; then
         echo "f <dir> <query>"
@@ -132,4 +140,25 @@ f() {
     dir=$1
     query=$2
     pushd "$dir" &>/dev/null && fzf -1 -e -q "$query" && popd &>/dev/null
+}
+
+fh() {
+    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+# anaconda
+export PATH=/opt/anaconda/bin:$PATH
+
+# alias file
+if [[ -e ~/.alias ]]; then
+    source ~/.alias
+fi
+
+# go path env
+export GOPATH="/home/urzz/project/go" 
+export PATH=$PATH:$GOPATH/bin
+
+# with proxy
+function wp() {
+    http_proxy=socks5://127.0.0.1:2017 https_proxy=socks5://127.0.0.1:2017 $@
 }

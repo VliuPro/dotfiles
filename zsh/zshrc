@@ -147,7 +147,8 @@ fh() {
 }
 
 # anaconda
-export PATH=/opt/anaconda/bin:$PATH
+#export PATH=/opt/anaconda/bin:$PATH
+#export PYTHONPATH=/opt/anaconda/lib/python3.6/site-packages:$PYTHONPATH
 
 # alias file
 if [[ -e ~/.alias ]]; then

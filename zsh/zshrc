@@ -1,6 +1,6 @@
+ZSH_DISABLE_COMPFIX=true
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-  export PATH=/usr/bin/emacsclient:~/script/:$PATH
   export LC_CTYPE=zh_CN.UTF-8
 
 # Path to your oh-my-zsh installation.
@@ -21,7 +21,7 @@ ZSH_THEME="agnoster"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="false"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -56,12 +56,15 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins+=(
+    osx
     git cp mvn 
-    pip python virtualenv virtualenvwrapper
+    jenv
+    pip python #virtualenv virtualenvwrapper
+    npm cnpm yarn nvm
     autojump colorize command-not-found history history-substring-search 
     docker docker-compose 
     zsh-autosuggestions 
-#    zsh-syntax-highlighting 
+    zsh-syntax-highlighting 
     zsh-navigation-tools
 )
 
@@ -95,30 +98,26 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-TIME_FORMAT='--time-style +%Y-%m-%d_%H:%m'
+TIME_FORMAT=' --time-style +%Y-%m-%d_%H:%m'
 
 # autojump environment
-[[ -s /home/vliupro/.autojump/etc/profile.d/autojump.sh ]] && source /home/vliupro/.autojump/etc/profile.d/autojump.sh
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 #if [ -n "$WINDOWID" ]; then
 #    TRANSPARENCY_HEX=$(printf 0x%x $((0xffffffff * 87 / 100)))
 #    xprop -id "$WINDOWID" -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY "$TRANSPARENCY_HEX"
 #fi
 
-export VISUAL="vim"
-
 # virtualenv
-export WORKON_HOME=~/.virtualenvs
-source /usr/bin/virtualenvwrapper_lazy.sh
+#export WORKON_HOME=~/.virtualenvs
+#source /usr/bin/virtualenvwrapper_lazy.sh
 
 # zsh-autosuggestions
 
 
 # nvm
-source /usr/share/nvm/init-nvm.sh
-
-# fix screenfetch bug
-export KDE_DEBUG=1
+#export NVM_DIR="$HOME/.nvm"
+#. "/usr/local/opt/nvm/nvm.sh"
 
 # fzf 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -129,6 +128,9 @@ if [[ -e ~/.alias ]]; then
 fi
 if [[ -e ~/.extra_config ]]; then
     source ~/.extra_config
+fi
+if [[ -e ~/.jdk_version ]]; then
+    source ~/.jdk_version
 fi
 
 # find
@@ -150,16 +152,23 @@ fh() {
 #export PATH=/opt/anaconda/bin:$PATH
 #export PYTHONPATH=/opt/anaconda/lib/python3.6/site-packages:$PYTHONPATH
 
-# alias file
-if [[ -e ~/.alias ]]; then
-    source ~/.alias
-fi
-
 # go path env
-export GOPATH="/home/urzz/project/go" 
+export GOPATH="/Users/urzz/.gopath"
 export PATH=$PATH:$GOPATH/bin
 
 # with proxy
 function wp() {
-    http_proxy=socks5://127.0.0.1:2017 https_proxy=socks5://127.0.0.1:2017 $@
+    http_proxy=http://127.0.0.1:1087 https_proxy=http://127.0.0.1:1087 $@
+#    https_proxy=http://127.0.0.1:2027 http_proxy=http://127.0.0.1:2027 all_proxy=socks5://127.0.0.1:2017 $@
 }
+
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+# homebrew bottles
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles

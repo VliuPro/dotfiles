@@ -6,7 +6,7 @@
 "
 "                       Description:        A Simple Vim Config
 "
-"                       Last Modify Date:   2017-03-03 13:31:30
+"                       Last Modify Date:   2018-09-26 17:31:30
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -32,7 +32,7 @@ Plug 'google/yapf'
 Plug 'sjl/gundo.vim'
 Plug 'rking/ag.vim'
 " auto complete
-Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'python']}
+Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'python', 'go']}
 " color theme
 Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
@@ -83,6 +83,7 @@ set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
 set shiftwidth=4
 set expandtab       " tabs are spaces
+set backspace=2     " mac need for delete
 
 " }}}
 
@@ -267,7 +268,6 @@ let g:ycm_always_populate_location_list = 1
 " Custom error and warning symbols
 let g:ycm_warning_symbol = '‼'
 let g:ycm_error_symbol   = '⁇'
-
 
 " }}}
 

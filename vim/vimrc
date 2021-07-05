@@ -14,6 +14,10 @@
 
 let mapleader=","
 
+if has('python3')
+  silent! python3 1
+endif
+
 " }}}
 
 " vim-plug {{{
@@ -50,6 +54,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'scrooloose/nerdcommenter'
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 filetype plugin indent on    " required
@@ -269,6 +274,10 @@ let g:ycm_always_populate_location_list = 1
 let g:ycm_warning_symbol = '‼'
 let g:ycm_error_symbol   = '⁇'
 
+let g:ycm_use_clangd = 0
+
+" extra config file confirm
+let g:ycm_confirm_extra_conf = 0
 " }}}
 
 " NERDTree {{{
